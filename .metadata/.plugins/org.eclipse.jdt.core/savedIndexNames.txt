@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+D:\goos\agilestudio\.metadata\.plugins\org.eclipse.jdt.core
+2904337242.index
+216471144.index
+3867208488.index
