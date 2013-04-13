@@ -1,0 +1,5 @@
+package com.lge.auctionsniper.test;
+
+public class AuctionSniperEndToEndTest {
+
+}

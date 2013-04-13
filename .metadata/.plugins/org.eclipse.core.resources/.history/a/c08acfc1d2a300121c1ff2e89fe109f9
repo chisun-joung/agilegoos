@@ -1,0 +1,11 @@
+package com.lge.auctionsniper.test;
+
+public class FakeAuctionServer {
+
+	private final String itemId;
+
+	public FakeAuctionServer(String itemId) {
+		this.itemId = itemId;
+	}
+
+}
