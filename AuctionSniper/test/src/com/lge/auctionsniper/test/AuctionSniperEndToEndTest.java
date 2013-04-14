@@ -10,6 +10,7 @@ public class AuctionSniperEndToEndTest extends ActivityInstrumentationTestCase2<
 	private final FakeAuctionServer auction = new FakeAuctionServer("item-54321");
 	private final ApplicationRunner application = new ApplicationRunner();
 	private Solo solo;
+	private XmppServer server = new XmppServer();
 	public AuctionSniperEndToEndTest() {
 		super(MainActivity.class);
 	}
@@ -17,6 +18,7 @@ public class AuctionSniperEndToEndTest extends ActivityInstrumentationTestCase2<
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		server.start();
 		solo = new Solo(getInstrumentation());
 	}
 	
@@ -32,6 +34,7 @@ public class AuctionSniperEndToEndTest extends ActivityInstrumentationTestCase2<
 	public void tearDown() throws Exception {
 		auction.stop();
 		application.stop();
+		server.stop();
 		super.tearDown();
 	}
 }
