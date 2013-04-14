@@ -4,14 +4,16 @@ import com.jayway.android.robotium.solo.Solo;
 
 public class ApplicationRunner {
 
+	private AuctionSniperDriver driver;
+
 	public void startBiddingIn(FakeAuctionServer auction, Solo solo) {
-		// TODO Auto-generated method stub
+		driver = new AuctionSniperDriver(solo,1000);
+		driver.showsSniperStatus("Joining");
 		
 	}
 
 	public void showsSniperHasLostAuction() {
-		// TODO Auto-generated method stub
-		
+		driver.showsSniperStatus("Lost");
 	}
 
 	public void stop() {

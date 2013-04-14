@@ -1,0 +1,20 @@
+package com.lge.auctionsniper.test;
+
+import android.app.Activity;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import com.jayway.android.robotium.solo.Solo;
+import com.lge.android.wl.driver.AndroidDriver;
+import com.lge.android.wl.driver.TextViewDriver;
+
+public class AuctionSniperDriver extends AndroidDriver<Activity> {
+
+	public AuctionSniperDriver(Solo solo, int timeout) {
+		super(solo, timeout);
+	}
+
+	public void showsSniperStatus(String statusText) {
+		new TextViewDriver(this,R.id.sniper_status).hasText(equalTo(statusText));
+	}
+
+}
