@@ -19,7 +19,7 @@ public class AuctionSniperEndToEndTest extends ActivityInstrumentationTestCase2<
 	public void setUp() throws Exception {
 		super.setUp();
 		server.start();
-		solo = new Solo(getInstrumentation());
+		solo = new Solo(getInstrumentation(),getActivity());
 	}
 	
 	public void testSniperJoinsAuctionUnitlAuctionCloses() throws Exception {

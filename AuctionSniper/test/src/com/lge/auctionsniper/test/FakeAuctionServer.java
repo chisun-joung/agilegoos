@@ -2,8 +2,10 @@ package com.lge.auctionsniper.test;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
+import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
 
 public class FakeAuctionServer {
 
@@ -13,10 +15,13 @@ public class FakeAuctionServer {
 	private static final String AUCTION_RESOURCE = "Auction";
 	private final String itemId;
 	private final XMPPConnection connection;
-
+	private final SingleMessageListener messageListener = new SingleMessageListener();
+	private Chat currentChat;
+	
 	public FakeAuctionServer(String itemId) {
 		this.itemId = itemId;
-		this.connection = new XMPPConnection(XMPP_HOSTNAME);
+		ConnectionConfiguration connectionConfiguration = new ConnectionConfiguration(XMPP_HOSTNAME, 5222);
+		this.connection = new XMPPConnection(connectionConfiguration);
 	}
 
 	public void startSellingItem() throws XMPPException {
@@ -24,24 +29,22 @@ public class FakeAuctionServer {
 		connection.login(String.format(ITEM_ID_AS_LOGIN, itemId), AUCTION_PASSWORD, AUCTION_RESOURCE);
 		connection.getChatManager().addChatListener(new ChatManagerListener() {
 			
-			private Chat currentChat;
 
 			@Override
 			public void chatCreated(Chat chat, boolean createdLocally) {
 				currentChat = chat;
+				chat.addMessageListener(messageListener);
 			}
 		});
 	}
 
 	
-	public void hasReceivedJoinRequestFromSniper() {
-		// TODO Auto-generated method stub
-		
+	public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
+		messageListener.receivesAMessage();
 	}
 
-	public void announceClosed() {
-		// TODO Auto-generated method stub
-		
+	public void announceClosed() throws XMPPException {
+		currentChat.sendMessage(new Message());
 	}
 
 	public void stop() {
